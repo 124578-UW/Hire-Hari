@@ -162,7 +162,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* CHAT VIEW */
 .chat-view{position:fixed;inset:0;max-width:430px;margin:0 auto;background:var(--bg);z-index:300;display:none;flex-direction:column}
 .chat-view.on{display:flex}
-.cv-hdr{height:56px;background:var(--s1);border-bottom:.5px solid var(--bd);display:flex;align-items:center;gap:10px;padding:0 12px;flex-shrink:0;margin-top:44px}
+.cv-hdr{height:56px;background:var(--s1);border-bottom:.5px solid var(--bd);display:flex;align-items:center;gap:10px;padding:0 12px;flex-shrink:0;margin-top:0}
 .cv-back{padding:4px 6px;cursor:pointer;display:flex;align-items:center}
 .cv-back svg{width:20px;height:20px;stroke:var(--y);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .cv-ava{width:36px;height:36px;border-radius:50%;overflow:hidden;background:var(--s3);flex-shrink:0}
@@ -248,6 +248,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 </div>
 
 <div class="app">
+
+
   <div class="sb">
     <span class="sb-time" id="sbTime">9:41</span>
     <div style="width:1px"></div>
@@ -257,7 +259,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
       <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="2.5" stroke="white" stroke-opacity=".35"/><rect x="22" y="4" width="2.5" height="4" rx="1" fill="white" opacity=".4"/><rect x="2" y="2" width="15" height="8" rx="1.5" fill="white"/></svg>
     </div>
   </div>
-
   <div class="pages">
     <!-- BROWSE -->
     <div class="page on" id="pg-grid">
@@ -571,7 +572,7 @@ var CONVOS={
     msgs:[{me:false,text:"hey"},{me:false,text:"host? lol kidding. what's your stack and availability?"},{me:true,text:"Python, SQL, PyMoo, AWS Glue/Athena, PySpark, XGBoost"},{me:true,text:"MS Data Science @ UW, GPA 3.86, F-1 OPT, available immediately"},{me:false,text:"wait you can start immediately? no H-1B wait?"},{me:true,text:"nope. STEM OPT. 3 years no sponsorship needed"},{me:false,text:"omg. tell me about your experience"},{me:true,text:"ML pipeline for spine surgeons @ Virginia Mason. 275 patients, genetic algo, 9 clinical scenarios"},{me:true,text:"also built AWS pipeline processing 750K events per batch"},{me:false,text:"ok i am going to be very real with you"},{me:false,text:"you're hired"},{me:true,text:"WAIT WHAT"},{me:false,text:"jk jk... but seriously send me your LinkedIn"},{me:true,text:"linkedin.com/in/hariharan-sureshkumar-engineer"},{me:false,text:"expect a message by EOD. this is a real one"}],
     replies:["omg tell me more","interesting...","ok i am impressed","can you share your GitHub?","my team is going to love this"]},
   cat:{name:'Pumpkin',status:'On your laptop &middot; judging everything',img:'cat',
-    msgs:[{me:false,text:"meow"},{me:false,text:"MEOW"},{me:false,text:"the bowl is empty"},{me:true,text:"i am applying to jobs rn give me a MINUTE"},{me:false,text:"did you get a job yet"},{me:true,text:"NO i am trying"},{me:false,text:"we need cat food money"},{me:false,text:"i do not understand why you built a vibe classifier for UW Quench instead of getting hired"},{me:true,text:"IT WAS FOR THE PORTFOLIO it will help me get hired"},{me:false,text:"the portfolio does not fill my bowl"},{me:false,text:"i sent you something",isImg:true},{me:false,text:"that is you. that is what you look like applying to jobs"},{me:true,text:"why are you like this"},{me:false,text:"meow. get a job"}],
+    msgs:[{me:false,text:"meow"},{me:false,text:"MEOW"},{me:false,text:"the bowl is empty"},{me:true,text:"i am applying to jobs rn give me a MINUTE"},{me:false,text:"did you get a job yet"},{me:true,text:"NO i am trying"},{me:false,text:"we need cat food money"},{me:false,text:"why are you building this portfolio instead of just applying"},{me:true,text:"THE PORTFOLIO will help me get hired. it is the strategy"},{me:false,text:"the portfolio does not fill my bowl"},{me:false,text:"i sent you something",isImg:true},{me:false,text:"that is you. that is what you look like applying to jobs"},{me:true,text:"why are you like this"},{me:false,text:"meow. get a job"}],
     replies:["meow","MEOW","did you get a job yet","the bowl is STILL empty","going to sit on your keyboard now"]},
   dory:{name:'DoryHR',status:'Just keep recruiting!',img:'dory',
     msgs:[{me:false,text:"Hi!! I found your profile and I am SO excited to connect!"},{me:false,text:"I would love to schedule a call to discuss some opportunities!"},{me:true,text:"that would be great! when works for you?"},{me:false,text:"I will send a calendar invite right now!"},{me:false,text:"..."},{me:false,text:"Hi!! I found your profile and I am SO excited to connect!"},{me:true,text:"...dory we just spoke an hour ago"},{me:false,text:"oh! right! I was going to schedule a call wasn't I"},{me:false,text:"what were we talking about again?"},{me:true,text:"a job. for me. data science."},{me:false,text:"YES! A job! I love jobs! Just keep recruiting!"},{me:false,text:"I am scheduling a call RIGHT NOW"},{me:false,text:"..."},{me:false,text:"Hi!! I found your profile and I—"},{me:true,text:"DORY."},{me:false,text:"oh. hi! have we spoken before?"}],
