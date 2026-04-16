@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Hire Hari</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#111;--s1:#1a1a1a;--s2:#222;--s3:#2c2c2c;--s4:#3a3a3a;--y:#f5a500;--b:#4fc3f7;--bm:#1565c0;--g:#3dd68c;--t:#fff;--m:#888;--bd:rgba(255,255,255,0.07)}
+html,body{height:100%;overflow:hidden;background:#000}
+body{font-family:-apple-system,system-ui,sans-serif;font-size:14px;color:var(--t)}
+img{display:block}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.app{display:flex;flex-direction:column;height:100dvh;max-width:430px;margin:0 auto;background:var(--bg);overflow:hidden}
+.sb{height:44px;background:var(--bg);display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex-shrink:0}
+.sb-time{font-size:16px;font-weight:700;letter-spacing:-.3px}
+.sb-r{display:flex;align-items:center;gap:6px}
+.pages{flex:1;overflow:hidden;position:relative;min-height:0}
+.page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;display:none;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.page::-webkit-scrollbar{display:none}
+.page.on{display:block}
+.bnav{height:60px;background:var(--s1);border-top:.5px solid var(--bd);display:flex;align-items:center;flex-shrink:0}
+.bni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;opacity:.35;transition:opacity .15s;position:relative;cursor:pointer}
+.bni.on{opacity:1}
+.bni svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.bni-lbl{font-size:9px;letter-spacing:.05em;text-transform:uppercase;font-weight:500}
+.nbadge{position:absolute;top:5px;right:calc(50% - 22px);background:var(--y);color:#000;font-size:9px;font-weight:800;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 3px}
+
+/* GRID */
+.gtbar{padding:8px 10px 6px;display:flex;align-items:center;gap:8px;border-bottom:.5px solid var(--bd)}
+.my-ava{width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid var(--y);flex-shrink:0;cursor:pointer}
+.my-ava img{width:100%;height:100%;object-fit:cover;object-position:top}
+.loc-box{flex:1;background:var(--s2);border:1.5px solid var(--y);border-radius:20px;padding:6px 14px;color:var(--y);font-size:13px;font-weight:500;display:flex;justify-content:space-between;align-items:center}
+.eye{width:34px;height:34px;border-radius:50%;background:var(--s2);border:.5px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:15px}
+.chips{display:flex;gap:6px;padding:6px 10px;overflow-x:auto;scrollbar-width:none;border-bottom:.5px solid var(--bd)}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;background:var(--s2);border:1px solid var(--s4);border-radius:14px;padding:4px 12px;font-size:12px;color:var(--m);cursor:pointer;white-space:nowrap}
+.chip.on{border-color:var(--y);color:var(--y);background:rgba(245,165,0,.08)}
+
+/* EQUAL 3-col grid — all tiles same size */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px}
+.gt{aspect-ratio:1;position:relative;overflow:hidden;background:var(--s3);cursor:pointer}
+.gt img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .3s}
+.gt:active img{transform:scale(1.04)}
+.gt-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.05) 55%,transparent 100%)}
+.gt-dot{position:absolute;top:6px;left:6px;width:9px;height:9px;background:var(--g);border-radius:50%;border:2px solid #111}
+.gt-badge{position:absolute;top:5px;right:5px;background:var(--y);color:#000;font-size:8px;font-weight:800;padding:2px 6px;border-radius:6px;text-transform:uppercase}
+.gt-star{position:absolute;top:4px;left:17px;color:var(--y);font-size:10px;font-weight:700}
+.gt-info{position:absolute;bottom:0;left:0;right:0;padding:7px 8px}
+.gt-name{font-size:11px;font-weight:700;line-height:1.2;text-shadow:0 1px 3px rgba(0,0,0,.9)}
+.gt-sub{font-size:9.5px;color:rgba(255,255,255,.5);margin-top:1px}
+.gt-emoji{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.strip{display:flex;justify-content:space-between;padding:5px 12px;font-size:11px;color:var(--m);border-top:.5px solid var(--bd)}
+
+/* PROFILE POPUP SHEET */
+.pf-pop{position:fixed;inset:0;max-width:430px;margin:0 auto;background:rgba(0,0,0,.9);z-index:200;display:none;align-items:flex-end}
+.pf-pop.on{display:flex}
+.pf-sheet{width:100%;background:var(--s1);border-radius:20px 20px 0 0;max-height:92dvh;overflow-y:auto;animation:su .3s cubic-bezier(.32,.72,0,1);scrollbar-width:none}
+.pf-sheet::-webkit-scrollbar{display:none}
+@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.sh-handle{width:36px;height:4px;background:var(--s4);border-radius:2px;margin:10px auto 0}
+.pf-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;display:block}
+.pf-photo-wide{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center;display:block}
+.pf-topbar{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:10px 12px}
+.pf-tb-btn{width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.55);font-size:14px;display:flex;align-items:center;justify-content:center}
+.pf-last{position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,.65);border-radius:9px;padding:5px 10px;font-size:11px;color:var(--b);display:flex;align-items:center;gap:4px}
+.pf-head{padding:14px 14px 0}
+.pf-nr{display:flex;align-items:baseline;gap:8px;margin-bottom:2px}
+.pf-name{font-size:24px;font-weight:700;letter-spacing:-.3px}
+.pf-age{font-size:16px;color:var(--m)}
+.pf-online{font-size:12px;color:var(--g);display:flex;align-items:center;gap:5px;margin-bottom:10px}
+.pf-online::before{content:'';width:7px;height:7px;background:var(--g);border-radius:50%;display:inline-block}
+.pf-sec{padding:12px 14px;border-top:.5px solid var(--bd)}
+.pf-sec-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--m);margin-bottom:8px}
+.stats-w{display:flex;flex-wrap:wrap}
+.str{display:flex;align-items:center;gap:6px;font-size:13px;margin-right:14px;margin-bottom:6px}
+.str .ico{font-size:13px;opacity:.65}
+.str .lbl{color:var(--m);margin-right:2px}
+.pf-bio{font-size:13.5px;line-height:1.65;color:rgba(255,255,255,.82)}
+.pf-bio b{color:var(--y)}
+.tags-w{display:flex;flex-wrap:wrap;gap:6px}
+.ptag{background:var(--s2);border:1px solid var(--s4);font-size:12px;padding:5px 11px;border-radius:13px;color:rgba(255,255,255,.65)}
+.abar{position:sticky;bottom:60px;background:var(--s1);border-top:.5px solid var(--bd);padding:10px 14px;display:flex;justify-content:space-around;align-items:center;z-index:20}
+.act{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:var(--m);cursor:pointer}
+.act-c{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--s4);display:flex;align-items:center;justify-content:center;font-size:21px;transition:all .2s}
+.act-c:active{transform:scale(.88)}
+.act-c.fire{border-color:var(--y);background:rgba(245,165,0,.1)}
+.act-c.fire.lit{background:var(--y);color:#000}
+.act-c.msg-c{border-color:var(--b);background:rgba(79,195,247,.1)}
+.say-bar{padding:10px 14px 14px;display:flex;align-items:center;gap:8px;border-top:.5px solid var(--bd)}
+.say-inp{flex:1;background:var(--s2);border:none;border-radius:22px;padding:10px 14px;color:var(--t);font-size:13px;outline:none}
+.say-inp::placeholder{color:var(--y)}
+.say-ico{font-size:24px;cursor:pointer}
+
+/* INBOX */
+.inbox-head{padding:14px;font-size:20px;font-weight:700}
+.itabs{display:flex;border-bottom:.5px solid var(--bd)}
+.itab{flex:1;text-align:center;padding:10px 4px;font-size:12.5px;color:var(--m);border-bottom:2.5px solid transparent;cursor:pointer;font-weight:500;transition:all .15s}
+.itab.on{color:var(--y);border-bottom-color:var(--y)}
+.itab-pane{display:none}
+.itab-pane.on{display:block}
+.cr{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:.5px solid var(--bd);cursor:pointer;transition:background .15s}
+.cr:active{background:var(--s2)}
+.cr-ava{width:50px;height:50px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--s3);position:relative;display:flex;align-items:center;justify-content:center}
+.cr-ava img{width:100%;height:100%;object-fit:cover;object-position:top}
+.cr-dot{position:absolute;bottom:1px;right:1px;width:10px;height:10px;background:var(--g);border-radius:50%;border:2px solid var(--s1)}
+.cr-mid{flex:1;min-width:0}
+.cr-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px}
+.cr-name{font-size:14px;font-weight:600}
+.cr-time{font-size:11px;color:var(--m)}
+.cr-prev{font-size:13px;color:var(--m);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cr-prev.new{color:var(--t);font-style:italic}
+.cr-badge{background:var(--y);color:#000;font-size:9px;font-weight:800;min-width:17px;height:17px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 3px;flex-shrink:0}
+.taps-g{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:10px 2px 2px}
+.tap-t{aspect-ratio:1;position:relative;overflow:hidden;background:var(--s3);cursor:pointer}
+.tap-t img{width:100%;height:100%;object-fit:cover}
+.tap-t-info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.88));padding:6px 7px}
+.tap-t-name{font-size:11px;font-weight:700}
+.tap-t-time{font-size:9px;color:rgba(255,255,255,.45)}
+.tap-lock{opacity:.35}
+.view-row{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:.5px solid var(--bd);cursor:pointer}
+.view-row:active{background:var(--s2)}
+.vr-ava{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--s3);display:flex;align-items:center;justify-content:center}
+.vr-ava img{width:100%;height:100%;object-fit:cover}
+.vr-mid{flex:1}
+.vr-name{font-size:13px;font-weight:600}
+.vr-detail{font-size:11px;color:var(--m);margin-top:1px}
+.vr-time{font-size:11px;color:var(--m);flex-shrink:0}
+
+/* VIEW NOTIF POPUP */
+.vn-wrap{position:fixed;top:54px;left:50%;transform:translateX(-50%) translateY(-90px);background:var(--s1);border:1px solid rgba(245,165,0,.5);border-radius:36px;padding:8px 14px 8px 8px;display:flex;align-items:center;gap:10px;z-index:500;transition:transform .4s cubic-bezier(.34,1.56,.64,1);max-width:340px;width:92%;box-shadow:0 4px 24px rgba(0,0,0,.6)}
+.vn-wrap.show{transform:translateX(-50%) translateY(0)}
+.vn-ava{width:38px;height:38px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid var(--y)}
+.vn-ava img{width:100%;height:100%;object-fit:cover}
+.vn-name{font-size:12.5px;font-weight:700;color:var(--t)}
+.vn-msg{font-size:11px;color:var(--m);margin-top:1px}
+
+/* MY PROFILE */
+.my-pf-photo{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;display:block}
+.link-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px 14px}
+.lc{background:var(--s2);border:.5px solid var(--s4);border-radius:12px;padding:13px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:background .15s}
+.lc:active{background:var(--s3)}
+.lc-i{font-size:22px;width:34px;text-align:center}
+.lc-n{font-size:13px;font-weight:600}
+.lc-s{font-size:11px;color:var(--m)}
+.fun-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px 24px}
+.fc{background:var(--s2);border:.5px solid var(--s4);border-radius:12px;padding:12px}
+.fc-e{font-size:1.5rem;margin-bottom:6px}
+.fc-t{font-size:12px;color:rgba(255,255,255,.62);line-height:1.5}
+
+/* CHAT VIEW */
+.chat-view{position:fixed;inset:0;max-width:430px;margin:0 auto;background:var(--bg);z-index:300;display:none;flex-direction:column}
+.chat-view.on{display:flex}
+.cv-hdr{height:56px;background:var(--s1);border-bottom:.5px solid var(--bd);display:flex;align-items:center;gap:10px;padding:0 12px;flex-shrink:0;margin-top:44px}
+.cv-back{font-size:24px;padding:4px 8px;cursor:pointer;color:var(--y)}
+.cv-ava{width:36px;height:36px;border-radius:50%;overflow:hidden;background:var(--s3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.cv-ava img{width:100%;height:100%;object-fit:cover;object-position:top}
+.cv-info{flex:1}
+.cv-name{font-size:14px;font-weight:700}
+.cv-status{font-size:11px;color:var(--g)}
+.cv-msgs{flex:1;overflow-y:auto;padding:14px 12px 8px;scrollbar-width:none;display:flex;flex-direction:column;gap:8px}
+.cv-msgs::-webkit-scrollbar{display:none}
+
+/* GRINDR-EXACT chat bubbles: THEM=dark blue-gray, ME=yellow */
+.msg-row{display:flex;align-items:flex-end;gap:6px}
+.msg-row.me{flex-direction:row-reverse}
+.bubble{max-width:74%;padding:9px 14px;font-size:14px;line-height:1.5;word-wrap:break-word}
+.msg-row.them .bubble{background:#1e3a5f;color:#e8f4fd;border-radius:20px 20px 20px 4px}
+.msg-row.me .bubble{background:var(--y);color:#000;font-weight:500;border-radius:20px 20px 4px 20px}
+.msg-t{font-size:10px;color:var(--m);flex-shrink:0;padding-bottom:2px}
+.msg-img-wrap{max-width:200px;border-radius:14px;overflow:hidden}
+.msg-img-wrap img{width:100%;display:block}
+.typing-bub{display:flex;align-items:center;gap:3px;padding:10px 14px;background:#1e3a5f;border-radius:20px 20px 20px 4px;width:fit-content}
+.dot{width:7px;height:7px;background:#90caf9;border-radius:50%;animation:db 1.2s ease-in-out infinite}
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+@keyframes db{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.cv-inp-row{padding:8px 12px 12px;background:var(--s1);border-top:.5px solid var(--bd);display:flex;gap:8px;align-items:center;flex-shrink:0}
+.cv-inp{flex:1;background:var(--s2);border:none;border-radius:22px;padding:10px 14px;color:var(--t);font-size:13px;outline:none}
+.cv-inp::placeholder{color:var(--m)}
+.cv-send{width:36px;height:36px;background:var(--y);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;flex-shrink:0}
+
+/* TAP POPUP */
+.tap-pop{position:fixed;inset:0;max-width:430px;margin:0 auto;background:rgba(0,0,0,.9);z-index:400;display:none;align-items:center;justify-content:center}
+.tap-pop.on{display:flex}
+.tap-card{background:var(--s1);border:1px solid rgba(245,165,0,.35);border-radius:20px;padding:26px 22px;text-align:center;max-width:300px;width:88%;animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes popIn{from{transform:scale(.75);opacity:0}to{transform:scale(1);opacity:1}}
+.tc-big{font-size:2.8rem;margin-bottom:10px}
+.tc-title{font-size:18px;font-weight:700;margin-bottom:8px}
+.tc-body{font-size:13px;color:rgba(255,255,255,.65);line-height:1.65;margin-bottom:18px}
+.tc-btn{width:100%;background:var(--y);color:#000;font-size:14px;font-weight:700;padding:13px;border-radius:14px;cursor:pointer;font-family:inherit}
+.tc-ghost{width:100%;background:transparent;border:.5px solid var(--s4);color:var(--m);font-size:13px;padding:11px;border-radius:14px;cursor:pointer;font-family:inherit;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div class="tap-pop" id="tapPop">
+  <div class="tap-card">
+    <div class="tc-big">⚡</div>
+    <div class="tc-title">Hire Hari 💅 tapped back!</div>
+    <div class="tc-body">MS Data Science @ UW · GPA 3.86<br>F-1 OPT / STEM OPT · no sponsorship needed · available now<br><br><b style="color:var(--y)">hire me bestie i'm literally begging 🙏✨</b></div>
+    <button class="tc-btn" id="tcBtn">View LinkedIn →</button>
+    <button class="tc-ghost" id="tcClose">maybe later</button>
+  </div>
+</div>
+
+<div class="pf-pop" id="pfPop">
+  <div class="pf-sheet"><div class="sh-handle"></div><div id="pfContent"></div></div>
+</div>
+
+<div class="chat-view" id="chatView">
+  <div class="cv-hdr">
+    <div class="cv-back" id="cvBack">‹</div>
+    <div class="cv-ava" id="cvAva"></div>
+    <div class="cv-info"><div class="cv-name" id="cvName"></div><div class="cv-status" id="cvStatus"></div></div>
+  </div>
+  <div class="cv-msgs" id="cvMsgs"></div>
+  <div class="cv-inp-row">
+    <input class="cv-inp" id="cvInp" placeholder="Say something...">
+    <div class="cv-send" id="cvSend">↑</div>
+  </div>
+</div>
+
+<div class="vn-wrap" id="vnWrap">
+  <div class="vn-ava" id="vnAva"></div>
+  <div><div class="vn-name" id="vnName"></div><div class="vn-msg" id="vnMsg"></div></div>
+</div>
+
+<div class="app">
+  <div class="sb">
+    <span class="sb-time" id="sbTime">9:41</span>
+    <span style="font-size:10px;font-weight:600;color:var(--m);letter-spacing:.05em">HIRE HARI</span>
+    <div class="sb-r">
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="6" width="3" height="6" rx=".5" fill="white" opacity=".4"/><rect x="4.5" y="4" width="3" height="8" rx=".5" fill="white" opacity=".6"/><rect x="9" y="2" width="3" height="10" rx=".5" fill="white" opacity=".8"/><rect x="13.5" y="0" width="3" height="12" rx=".5" fill="white"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 3C10.5 3 12.8 4.1 14.3 5.9L16 4C14 1.5 11.2 0 8 0S2 1.5 0 4L1.7 5.9C3.2 4.1 5.5 3 8 3z" fill="white" opacity=".5"/><path d="M8 6.5C9.5 6.5 10.8 7.1 11.8 8.1L13.5 6.3C12 4.9 10.1 4 8 4S4 4.9 2.5 6.3L4.2 8.1C5.2 7.1 6.5 6.5 8 6.5z" fill="white" opacity=".75"/><circle cx="8" cy="11" r="1.5" fill="white"/></svg>
+      <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="2.5" stroke="white" stroke-opacity=".35"/><rect x="22" y="4" width="2.5" height="4" rx="1" fill="white" opacity=".4"/><rect x="2" y="2" width="15" height="8" rx="1.5" fill="white"/></svg>
+    </div>
+  </div>
+
+  <div class="pages">
+
+    <!-- BROWSE -->
+    <div class="page on" id="pg-grid">
+      <div class="gtbar">
+        <div class="my-ava" id="myAva" onclick="goPage('myprofile')"></div>
+        <div class="loc-box"><span>Seattle, WA 🌧️</span><span style="font-size:16px">✕</span></div>
+        <div class="eye">👁</div>
+      </div>
+      <div class="chips">
+        <div class="chip on">Online Now</div>
+        <div class="chip">Open to Work 💼</div>
+      </div>
+      <div class="g3" id="grid"></div>
+      <div class="strip">
+        <span>📍 Seattle · F-1 OPT</span>
+        <span id="vcNum">👁 loading...</span>
+      </div>
+    </div>
+
+    <!-- INBOX -->
+    <div class="page" id="pg-inbox">
+      <div class="inbox-head">Chats 💬</div>
+      <div class="itabs">
+        <div class="itab on" onclick="switchTab('msgs')">Messages</div>
+        <div class="itab" onclick="switchTab('taps')">Taps <span style="color:var(--y);font-weight:700">4</span></div>
+        <div class="itab" onclick="switchTab('views')">Viewed Me</div>
+      </div>
+      <div class="itab-pane on" id="tab-msgs" ></div>
+      <div class="itab-pane" id="tab-taps"></div>
+      <div class="itab-pane" id="tab-views">
+        <div style="padding:16px;text-align:center">
+          <div style="font-size:42px;font-weight:800;color:var(--y)" id="viewsBig">—</div>
+          <div style="font-size:12px;color:var(--m);margin-top:4px">total portfolio views</div>
+        </div>
+        <div id="viewsList"></div>
+        <div style="text-align:center;padding:16px">
+          <button id="shareBtn" style="background:var(--y);color:#000;font-weight:700;padding:11px 28px;border-radius:14px;font-size:13px;cursor:pointer;font-family:inherit;border:none">Share Portfolio ✨</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MY PROFILE -->
+    <div class="page" id="pg-myprofile">
+      <img id="myPfPhoto" class="my-pf-photo" alt="Hari">
+      <div style="padding:14px 14px 4px">
+        <div style="font-size:22px;font-weight:700;margin-bottom:3px">Hire Hari 💅</div>
+        <div style="font-size:13px;color:var(--m)">Data Scientist · MS UW · Seattle</div>
+      </div>
+      <a href="https://www.linkedin.com/in/hariharan-sureshkumar-engineer/" target="_blank" style="display:block;margin:10px 14px;background:var(--s2);border:1px solid var(--s4);border-radius:10px;padding:12px;text-align:center;font-size:14px;font-weight:600">Edit Profile · LinkedIn →</a>
+      <div class="pf-sec" style="border-top:.5px solid var(--bd);padding:12px 14px">
+        <div class="pf-sec-lbl">About Me</div>
+        <p class="pf-bio">MS Data Science @ UW 🎓 · GPA 3.86 · built ML for spine surgeons · trained a vibe classifier on UW Quench orders · data engineer on AWS · now looking for a job so <b>Pumpkin</b> can eat 🐾<br><br>
+        <b>looking for:</b> full-time DS / ML roles · <b>status:</b> F-1 OPT · available immediately</p>
+      </div>
+      <div class="pf-sec"><div class="pf-sec-lbl">Links</div>
+        <div class="link-grid">
+          <a href="https://github.com/124578-UW" target="_blank" class="lc"><div class="lc-i">🐙</div><div><div class="lc-n">GitHub</div><div class="lc-s">124578-UW</div></div></a>
+          <a href="https://www.linkedin.com/in/hariharan-sureshkumar-engineer/" target="_blank" class="lc"><div class="lc-i">💼</div><div><div class="lc-n">LinkedIn</div><div class="lc-s">hariharan-engineer</div></div></a>
+          <a href="https://public.tableau.com/app/profile/hari.haran.suresh.kumar/vizzes" target="_blank" class="lc"><div class="lc-i">📊</div><div><div class="lc-n">Tableau</div><div class="lc-s">Public Dashboards</div></div></a>
+          <a href="mailto:hhsk@uw.edu" class="lc"><div class="lc-i">📧</div><div><div class="lc-n">Email</div><div class="lc-s">hhsk@uw.edu</div></div></a>
+        </div>
+      </div>
+      <div class="pf-sec" style="border-top:.5px solid var(--bd)"><div class="pf-sec-lbl" style="padding:0 0 10px">Fun Facts</div></div>
+      <div class="fun-grid">
+        <div class="fc"><div class="fc-e">🐱</div><div class="fc-t">Cats > humans. Pumpkin judges my code quality daily.</div></div>
+        <div class="fc"><div class="fc-e">🥛</div><div class="fc-t">Milk FIRST then cereal. Non-negotiable. Not discussing this.</div></div>
+        <div class="fc"><div class="fc-e">☕</div><div class="fc-t">Worked at UW Quench. Built a vibe classifier from the orders. Unbothered.</div></div>
+        <div class="fc"><div class="fc-e">🌵</div><div class="fc-t">That photo? Alvord Desert, Oregon. Nothing for miles. Thriving.</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bnav">
+    <div class="bni on" id="bn-grid" onclick="goPage('grid')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      <span class="bni-lbl">Browse</span>
+    </div>
+    <div class="bni" id="bn-inbox" onclick="goPage('inbox')">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      <div class="nbadge">6</div>
+      <span class="bni-lbl">Chats</span>
+    </div>
+    <div class="bni" id="bn-myprofile" onclick="goPage('myprofile')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span class="bni-lbl">Profile</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── IMAGE DATA ── injected by build script
+var I = {
+  "prof": "images/prof.jpg",
+  "prof_sq": "images/prof.jpg",
+  "cat": "images/cat.jpg",
+  "cat_sq": "images/cat.jpg",
+  "anne": "images/anne.jpg",
+  "anne_sq": "images/anne.jpg",
+  "sloth": "images/sloth.jpg",
+  "sloth_sq": "images/sloth.jpg",
+  "dory": "images/dory.jpg",
+  "dory_sq": "images/dory.jpg",
+  "gorilla": "images/gorilla.jpg",
+  "turtle": "images/turtle.jpg",
+};
+
+
+// ── TIME ──
+function tick() {
+  var n = new Date(), h = n.getHours() % 12 || 12, m = n.getMinutes();
+  document.getElementById('sbTime').textContent = h + ':' + (m < 10 ? '0' + m : m);
+  setTimeout(tick, 15000);
+}
+tick();
+
+// ── SETUP STATIC IMAGES ──
+function si(el, key, style) {
+  if (!el) return;
+  var img = document.createElement('img');
+  img.src = I[key];
+  img.style.cssText = style || 'width:100%;height:100%;object-fit:cover;object-position:top';
+  el.appendChild(img);
+}
+si(document.getElementById('myAva'), 'prof_sq');
+document.getElementById('myPfPhoto').src = I['prof'];
+
+// ── PROFILES DATA ──
+var profiles = {
+  hari: {
+    img: 'prof', wide: false,
+    name: 'Hire Hari 💅', age: '24',
+    online: 'Online now · 0 mi away',
+    last: 'Check out my profile ✨',
+    stats: [
+      {i:'🎓',l:'Education',v:'MS Data Science, UW'},
+      {i:'📍',l:'Location',v:'Seattle, WA'},
+      {i:'💼',l:'Looking for',v:'Full-time DS/ML roles'},
+      {i:'🧬',l:'Tribe',v:'Geek / Data Nerd'},
+      {i:'✈️',l:'Status',v:'F-1 OPT · Start immediately'},
+      {i:'⭐',l:'GPA',v:'3.86'}
+    ],
+    bio: 'I build ML pipelines for spine surgeons, train personality classifiers at UW Quench, and process 750K AWS events per batch. Currently accepting job offers, DMs, and prayers. My cat <b>Pumpkin</b> is my deadline.',
+    tags: ['Data Science','ML Engineering','AWS','Python','SQL','Cats 🐱','milk first 🥛','gossip girl era','desert person 🌵'],
+    action: 'tap', chatId: null
+  },
+  cat: {
+    img: 'cat', wide: false,
+    name: 'Pumpkin 🎃🐾', age: '4',
+    online: 'Online · 0.002 mi · on your laptop',
+    last: 'Sent a voice note: MEOW',
+    stats: [
+      {i:'🐱',l:'Species',v:'Cat (superior being)'},
+      {i:'📍',l:'Location',v:"On Hari's keyboard"},
+      {i:'🍗',l:'Looking for',v:'Cat food. Now.'},
+      {i:'😼',l:'Tribe',v:'Chaotic neutral'},
+      {i:'💤',l:'Status',v:'Napping but judging you'},
+      {i:'⭐',l:'Vibe',v:'Iconic menace'}
+    ],
+    bio: "Have you met my dad? Hari? He trains ML models for spine surgeons but can't remember to fill my bowl. I watch AI cat videos on Instagram. I sit on his keyboard during important meetings. I am the most productive member of this household.",
+    tags: ['keyboard menace','AI cat video enjoyer','hungry always','judging your code','professional napper'],
+    action: 'chat', chatId: 'cat'
+  },
+  anne: {
+    img: 'anne', wide: false,
+    name: 'SeniorRecruiter 👩‍💼', age: '??',
+    online: 'Online now · 0.4 mi',
+    last: 'Tapped you · Just now ⭐',
+    stats: [
+      {i:'💼',l:'Role',v:'Senior Technical Recruiter'},
+      {i:'🏢',l:'Company',v:'FAANG Adjacent™'},
+      {i:'📍',l:'Location',v:'Seattle / Remote'},
+      {i:'🔍',l:'Looking for',v:'Strong DS talent'},
+      {i:'⭐',l:'Tribe',v:'Top Recruiter'},
+      {i:'📊',l:'Fills/yr',v:'50+ data roles'}
+    ],
+    bio: "I source exceptional data science talent for high-growth tech teams. Currently looking for someone with ML pipeline experience, cloud data engineering, and the rare ability to explain their work to non-technical stakeholders. Your profile caught my eye 👀",
+    tags: ['technical recruiting','data science','FAANG pipeline','will actually reply'],
+    action: 'chat', chatId: 'anne'
+  },
+  sloth: {
+    img: 'sloth', wide: true,
+    name: 'FlashZPD 🦥', age: '??',
+    online: 'Online... slowly... · 1.2 mi',
+    last: 'Still processing your profile from yesterday',
+    stats: [
+      {i:'🦥',l:'Role',v:'Data Analyst · Zootopia PD'},
+      {i:'🏙️',l:'Location',v:'Zootopia DMV Dept'},
+      {i:'🔍',l:'Case',v:'Missing animals · analytics needed'},
+      {i:'⏱️',l:'Response time',v:'2-3 business weeks'},
+      {i:'😴',l:'Tribe',v:'Sloth'},
+      {i:'💻',l:'Status',v:'Typing...........'}
+    ],
+    bio: "Ha.....ha..............ha. I'm Flash. I work in the DMV data department at Zootopia PD. We have a case involving missing animals and we need a data scientist to run some analytics. I've been reviewing your profile since............. Tuesday.",
+    tags: ['Zootopia PD','DMV data','case: missing animals','very thorough reviewer','slow but steady'],
+    action: 'chat', chatId: 'sloth'
+  },
+  dory: {
+    img: 'dory', wide: true,
+    name: 'DoryHR 🐟', age: '??',
+    online: 'Online! · just keep swimming · 2 mi',
+    last: 'Wait why am I here again?',
+    stats: [
+      {i:'🐟',l:'Role',v:'Talent Acquisition Lead'},
+      {i:'🌊',l:'Location',v:'The Ocean / Remote'},
+      {i:'📅',l:'Scheduled calls',v:'47 (forgot all of them)'},
+      {i:'🔍',l:'Looking for',v:'...I had it written down'},
+      {i:'🧠',l:'Memory',v:'Goldfish (she tries)'},
+      {i:'💙',l:'Vibe',v:'Just keep recruiting'}
+    ],
+    bio: "Hi! I'm a recruiter! I'm so excited to connect with you! I was going to schedule a call but... hmm. I had something written down. Oh well! Just keep swimming! I definitely remember your profile. It was the one with the... the... was it a fish? No wait. A spine? I'll circle back.",
+    tags: ['talent acquisition','forgets everything','schedules calls','forgets the calls','very enthusiastic'],
+    action: 'chat', chatId: 'dory'
+  },
+  pythonpapi: {
+    img: 'gorilla', wide: false,
+    name: 'PythonPapi 🐍', age: '??',
+    online: 'Offline · thinking about commit msg',
+    last: 'Last seen: contemplating git',
+    stats: [
+      {i:'🐍',l:'Stack',v:'Python · Django · FastAPI'},
+      {i:'💭',l:'Currently',v:'Writing a commit message'},
+      {i:'🤝',l:'Looking for',v:'Collab on Python projects'},
+      {i:'🧠',l:'Tribe',v:'Backend gorilla'},
+      {i:'📦',l:'Status',v:'"fix: stuff" (the commit)'},
+      {i:'🔥',l:'Vibe',v:'Thoughtful. Very thoughtful.'}
+    ],
+    bio: "I've been thinking about what to write for this commit message for 45 minutes. The code works. I just need the right words. Anyway, looking to collaborate on interesting Python projects. Data pipelines, APIs, anything where I don't have to write a commit message under pressure.",
+    tags: ['Python','open to collab','FastAPI','backend','will overthink commits'],
+    action: null, chatId: null
+  },
+  sqlsassy: {
+    img: 'turtle', wide: false,
+    name: 'SQLSassy 🐢', age: '??',
+    online: 'Online · · · somewhere',
+    last: 'Me when I open unfinished project',
+    stats: [
+      {i:'🐢',l:'Stack',v:'SQL · dbt · Postgres'},
+      {i:'📍',l:'Location',v:'Wherever the data is'},
+      {i:'🤝',l:'Looking for',v:'Collab on SQL/data modeling'},
+      {i:'😵',l:'Currently',v:'What is this project'},
+      {i:'🗄️',l:'Tribe',v:'Data modeling turtle'},
+      {i:'💭',l:'Vibe',v:'"what is this place"'}
+    ],
+    bio: "Me when I open an unfinished SQL project after 2 months: What is this place? Who wrote this? Why are there 47 CTEs? Anyway I'm looking to collaborate on data modeling, schema design, and analytics engineering. I promise I will document everything this time. Probably.",
+    tags: ['SQL','dbt','data modeling','open to collab','will document (maybe)'],
+    action: null, chatId: null
+  }
+};
+
+// ── BUILD GRID ──
+var gridOrder = ['hari','cat','anne','sloth','dory','pythonpapi','sqlsassy'];
+var gridEl = document.getElementById('grid');
+gridOrder.forEach(function(key) {
+  var p = profiles[key];
+  var gt = document.createElement('div');
+  gt.className = 'gt';
+  // image
+  var img = document.createElement('img');
+  img.src = I[p.img];
+  img.alt = p.name;
+  gt.appendChild(img);
+  // overlay
+  var grad = document.createElement('div'); grad.className = 'gt-grad'; gt.appendChild(grad);
+  if (key === 'hari') {
+    var dot = document.createElement('div'); dot.className = 'gt-dot'; gt.appendChild(dot);
+    var star = document.createElement('div'); star.className = 'gt-star'; star.textContent = '★'; gt.appendChild(star);
+    var badge = document.createElement('div'); badge.className = 'gt-badge'; badge.textContent = 'Open to Work 💅'; gt.appendChild(badge);
+  } else if (['cat','anne','dory'].indexOf(key) !== -1) {
+    var dot2 = document.createElement('div'); dot2.className = 'gt-dot'; gt.appendChild(dot2);
+  }
+  if (key === 'anne') {
+    var abadge = document.createElement('div'); abadge.className = 'gt-badge'; abadge.textContent = '⭐ Top'; gt.appendChild(abadge);
+  }
+  var info = document.createElement('div'); info.className = 'gt-info';
+  info.innerHTML = '<div class="gt-name">' + p.name + '</div><div class="gt-sub">' + p.online.split(' · ').slice(-1)[0] + '</div>';
+  gt.appendChild(info);
+  gt.onclick = function() { openPf(key); };
+  gridEl.appendChild(gt);
+});
+
+// ── BUILD INBOX MESSAGES ──
+var msgConvos = ['anne','cat','dory','sloth'];
+var msgEl = document.getElementById('tab-msgs');
+msgConvos.forEach(function(key) {
+  var p = profiles[key];
+  var prevs = {anne:"host? what's your stack? 👀",cat:'we need cat food money bro 😾',dory:"i scheduled a call! ...what was it for again?",sloth:"I'm... looking... into... your... profile..."};
+  var times = {anne:'Just now!',cat:'4 hrs',dory:'45 min',sloth:'Yesterday'};
+  var badges = {anne:'3',cat:'2',dory:'1',sloth:''};
+  var row = document.createElement('div');
+  row.className = 'cr';
+  row.innerHTML = '<div class="cr-ava"><img src="' + I[key + '_sq'] + '" style="width:100%;height:100%;object-fit:cover;object-position:top"><div class="cr-dot"></div></div>' +
+    '<div class="cr-mid"><div class="cr-top"><span class="cr-name">' + (key==='anne'?'⭐ ':'') + p.name + '</span><span class="cr-time">' + times[key] + '</span></div>' +
+    '<div class="cr-prev new">' + prevs[key] + '</div></div>' +
+    (badges[key] ? '<div class="cr-badge">' + badges[key] + '</div>' : '');
+  row.onclick = function() { openChat(key); };
+  msgEl.appendChild(row);
+});
+
+// ── BUILD TAPS TAB ──
+var tapsEl = document.getElementById('tab-taps');
+tapsEl.innerHTML = '<div style="padding:10px 12px;font-size:12px;color:var(--m)">4 people tapped your portfolio 👀</div>';
+var tapsG = document.createElement('div'); tapsG.className = 'taps-g';
+[['anne','SeniorRecruiter','Just now'],['dory','DoryHR','45 min'],['sloth','FlashZPD','Yesterday']].forEach(function(t) {
+  var tile = document.createElement('div'); tile.className = 'tap-t';
+  tile.innerHTML = '<img src="' + I[t[0]+'_sq'] + '" style="width:100%;height:100%;object-fit:cover"><div class="tap-t-info"><div class="tap-t-name">' + t[1] + '</div><div class="tap-t-time">' + t[2] + '</div></div>';
+  tile.onclick = function() { openChat(t[0]); };
+  tapsG.appendChild(tile);
+});
+var lock = document.createElement('div'); lock.className = 'tap-t tap-lock';
+lock.innerHTML = '<div class="tap-t-info" style="background:none;top:50%;transform:translateY(-50%);text-align:center"><div style="font-size:2rem">🔒</div><div class="tap-t-name">Get XTRA</div></div>';
+tapsG.appendChild(lock);
+tapsEl.appendChild(tapsG);
+
+// ── BUILD VIEWS LIST ──
+var viewsData = [
+  {key:'dory', name:'DoryHR 🐟', detail:'Viewed 3 times today (keeps forgetting)', time:'now'},
+  {key:'anne', name:'SeniorRecruiter 👩‍💼', detail:'Viewed for 4 min · opened GitHub', time:'8m'},
+  {key:'sloth', name:'FlashZPD 🦥', detail:'Still loading your profile...', time:'2h'},
+  {key:null, name:'Anonymous', detail:'Upgrade to XTRA to see who', time:'3h'}
+];
+var vEl = document.getElementById('viewsList');
+viewsData.forEach(function(v) {
+  var row = document.createElement('div');
+  row.className = 'view-row' + (v.key ? '' : ' tap-lock');
+  var avaHtml = v.key
+    ? '<img src="' + I[v.key+'_sq'] + '" style="width:100%;height:100%;object-fit:cover">'
+    : '<span style="font-size:1.3rem">🕵️</span>';
+  row.innerHTML = '<div class="vr-ava">' + avaHtml + '</div><div class="vr-mid"><div class="vr-name">' + v.name + '</div><div class="vr-detail">' + v.detail + '</div></div><div class="vr-time">' + v.time + '</div>';
+  if (v.key) row.onclick = function() { showViewNotif(v.key, v.name, v.detail); };
+  vEl.appendChild(row);
+});
+
+// ── VIEW NOTIF ──
+function showViewNotif(key, name, msg) {
+  var n = document.getElementById('vnWrap');
+  document.getElementById('vnAva').innerHTML = '<img src="' + I[key+'_sq'] + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
+  document.getElementById('vnName').textContent = name;
+  document.getElementById('vnMsg').textContent = msg;
+  n.classList.add('show');
+  setTimeout(function() { n.classList.remove('show'); }, 3500);
+}
+
+// ── NAV ──
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.bni').forEach(function(b){b.classList.remove('on')});
+  document.getElementById('pg-'+id).classList.add('on');
+  var bn = document.getElementById('bn-'+id);
+  if (bn) bn.classList.add('on');
+}
+function switchTab(id) {
+  document.querySelectorAll('.itab').forEach(function(t,i){t.classList.toggle('on',['msgs','taps','views'][i]===id)});
+  document.querySelectorAll('.itab-pane').forEach(function(p){p.classList.remove('on')});
+  document.getElementById('tab-'+id).classList.add('on');
+}
+
+// ── PROFILE POPUP ──
+function openPf(key) {
+  var p = profiles[key];
+  var si2 = p.stats.map(function(s){return '<div class="str"><span class="ico">'+s.i+'</span><span class="lbl">'+s.l+'</span><span>'+s.v+'</span></div>';}).join('');
+  var ti = p.tags.map(function(t){return '<span class="ptag">'+t+'</span>';}).join('');
+  var photoClass = p.wide ? 'pf-photo-wide' : 'pf-photo';
+  var mainBtn = p.action === 'tap'
+    ? '<div class="act" onclick="handleTap()"><div class="act-c fire" id="fireBtn2">⚡</div><span>Tap</span></div>'
+    : p.action === 'chat'
+      ? '<div class="act" onclick="closePf();openChat(\''+p.chatId+'\')"><div class="act-c fire">💬</div><span>Chat</span></div>'
+      : '<div class="act"><div class="act-c" style="opacity:.35">💬</div><span>Offline</span></div>';
+  var msgBtn = p.chatId
+    ? '<div class="act" onclick="closePf();openChat(\''+p.chatId+'\')"><div class="act-c msg-c">💬</div><span>Message</span></div>'
+    : '<div class="act"><div class="act-c" style="opacity:.35">💬</div><span>Message</span></div>';
+  document.getElementById('pfContent').innerHTML =
+    '<div style="position:relative">' +
+    '<img src="'+I[p.img]+'" class="'+photoClass+'" alt="'+p.name+'">' +
+    '<div class="pf-topbar"><button class="pf-tb-btn" onclick="closePf()">✕</button><div style="display:flex;gap:8px"><button class="pf-tb-btn">🚫</button><button class="pf-tb-btn">☆</button></div></div>' +
+    '<div class="pf-last">💬 '+p.last+'</div></div>' +
+    '<div class="pf-head"><div class="pf-nr"><span class="pf-name">'+p.name+'</span><span class="pf-age">'+p.age+'</span></div><div class="pf-online">'+p.online+'</div></div>' +
+    '<div class="pf-sec"><div class="pf-sec-lbl">Stats</div><div class="stats-w">'+si2+'</div></div>' +
+    '<div class="pf-sec"><div class="pf-sec-lbl">About Me</div><p class="pf-bio">'+p.bio+'</p></div>' +
+    '<div class="pf-sec"><div class="pf-sec-lbl">Tags</div><div class="tags-w">'+ti+'</div></div>' +
+    '<div class="abar"><div class="act"><div class="act-c">🚫</div><span>Block</span></div>'+mainBtn+msgBtn+'<div class="act"><div class="act-c">☆</div><span>Fave</span></div></div>' +
+    '<div class="say-bar"><input class="say-inp" placeholder="Say something..." readonly onclick="closePf();openChat(\''+(p.chatId||'anne')+'\')"><span class="say-ico" onclick="handleTap()">🔥</span><span class="say-ico" onclick="closePf();openChat(\''+(p.chatId||'anne')+'\')">💬</span></div>' +
+    '<div style="height:16px"></div>';
+  document.getElementById('pfPop').classList.add('on');
+}
+function closePf() { document.getElementById('pfPop').classList.remove('on'); }
+document.getElementById('pfPop').onclick = function(e) { if (e.target === this) closePf(); };
+
+// ── TAP ──
+var tapped = false;
+function handleTap() {
+  if (!tapped) {
+    tapped = true;
+    ['fireBtn','fireBtn2'].forEach(function(id){ var el = document.getElementById(id); if(el) el.classList.add('lit'); });
+  }
+  closePf();
+  document.getElementById('tapPop').classList.add('on');
+}
+document.getElementById('tapPop').onclick = function(e) { if(e.target===this) this.classList.remove('on'); };
+document.getElementById('tcBtn').onclick = function() { window.open('https://www.linkedin.com/in/hariharan-sureshkumar-engineer/','_blank'); document.getElementById('tapPop').classList.remove('on'); };
+document.getElementById('tcClose').onclick = function() { document.getElementById('tapPop').classList.remove('on'); };
+
+// ── CONVERSATIONS ──
+var convos = {
+  anne: {
+    name: 'SeniorRecruiter 👩‍💼', status: 'Online · 0.4 mi', imgKey: 'anne_sq',
+    msgs: [
+      {me:false,text:"hey 👀",t:"9:41"},
+      {me:false,text:"host? lol kidding. what's your stack and availability?",t:"9:41"},
+      {me:true,text:"Python, SQL, PyMoo, AWS Glue/Athena, PySpark, XGBoost 😌",t:"9:42"},
+      {me:true,text:"MS Data Science @ UW, GPA 3.86, F-1 OPT, available immediately 🙏",t:"9:42"},
+      {me:false,text:"wait you can start immediately? no H-1B wait?",t:"9:43"},
+      {me:true,text:"nope! STEM OPT. 3 years no sponsorship needed",t:"9:43"},
+      {me:false,text:"omg. tell me about your experience",t:"9:44"},
+      {me:true,text:"ML pipeline for spine surgeons @ Virginia Mason. 275 patients, genetic algo, 9 clinical scenarios",t:"9:44"},
+      {me:true,text:"also built AWS pipeline processing 750K events per batch",t:"9:45"},
+      {me:false,text:"ok i am going to be very real with you",t:"9:46"},
+      {me:false,text:"you're hired 💅",t:"9:46"},
+      {me:true,text:"WAIT WHAT 😭",t:"9:46"},
+      {me:false,text:"jk jk... but seriously send me your LinkedIn",t:"9:47"},
+      {me:true,text:"linkedin.com/in/hariharan-sureshkumar-engineer 🙏",t:"9:47"},
+      {me:false,text:"expect a message by EOD. this is a real one 👀",t:"9:48"}
+    ],
+    replies: ["omg tell me more 👀","interesting...","ok ngl i'm impressed","can you share your GitHub?","my team is going to love this"]
+  },
+  cat: {
+    name: 'Pumpkin 🎃🐾', status: 'On your laptop · judging everything', imgKey: 'cat_sq',
+    msgs: [
+      {me:false,text:"meow",t:"7:00"},
+      {me:false,text:"MEOW",t:"7:00"},
+      {me:false,text:"the bowl is empty",t:"7:01"},
+      {me:true,text:"i'm applying to jobs rn give me a MINUTE",t:"8:30"},
+      {me:false,text:"did you get a job yet",t:"8:31"},
+      {me:true,text:"NO i'm trying 😭",t:"8:31"},
+      {me:false,text:"we need cat food money bro",t:"8:32"},
+      {me:false,text:"i do not understand why you built a vibe classifier for UW Quench instead of getting hired",t:"8:32"},
+      {me:true,text:"IT WAS FOR THE PORTFOLIO it will help me get a job",t:"8:33"},
+      {me:false,text:"the portfolio doesn't fill my bowl",t:"8:33"},
+      {me:false,text:"i sent you something",t:"8:34"},
+      {me:false,isImg:true,t:"8:34"},
+      {me:false,text:"that's you. that's what you look like applying to jobs",t:"8:35"},
+      {me:true,text:"why are you like this 😭😭",t:"8:35"},
+      {me:false,text:"meow 😾 get a job",t:"8:36"}
+    ],
+    replies: ["meow","MEOW","did you get a job yet","the bowl is STILL empty","i'm going to sit on your keyboard now","purr... but also get a job"]
+  },
+  dory: {
+    name: 'DoryHR 🐟', status: 'Just keep recruiting!', imgKey: 'dory_sq',
+    msgs: [
+      {me:false,text:"Hi!! I found your profile and I am SO excited to connect!",t:"10:00"},
+      {me:false,text:"I would love to schedule a call to discuss some opportunities!",t:"10:00"},
+      {me:true,text:"that would be great! when works for you?",t:"10:05"},
+      {me:false,text:"I'll send a calendar invite right now!",t:"10:06"},
+      {me:false,text:"...",t:"10:20"},
+      {me:false,text:"Hi!! I found your profile and I am SO excited to connect!",t:"11:30"},
+      {me:true,text:"...dory we just spoke an hour ago",t:"11:32"},
+      {me:false,text:"oh! right! I was going to schedule a call wasn't I",t:"11:33"},
+      {me:false,text:"what were we talking about again?",t:"11:33"},
+      {me:true,text:"a job. for me. data science.",t:"11:34"},
+      {me:false,text:"YES! A job! I love jobs! Just keep recruiting!",t:"11:34"},
+      {me:false,text:"I am scheduling a call RIGHT NOW",t:"11:35"},
+      {me:false,text:"...",t:"11:35"},
+      {me:false,text:"Hi!! I found your profile and I—",t:"2:00"},
+      {me:true,text:"DORY.",t:"2:01"},
+      {me:false,text:"oh. hi! have we spoken before? 😊",t:"2:01"}
+    ],
+    replies: ["Just keep recruiting!","wait what were we talking about","oh! yes! I remember now! ...what was it?","I'll schedule a call!","hi! have we spoken before? 😊"]
+  },
+  sloth: {
+    name: 'FlashZPD 🦥', status: 'Processing... please wait...', imgKey: 'sloth_sq',
+    msgs: [
+      {me:false,text:"Hel...",t:"Mon 9:00"},
+      {me:false,text:"...lo.",t:"Mon 9:47"},
+      {me:false,text:"I'm... Flash. I work at... Zootopia PD.",t:"Mon 2:30"},
+      {me:true,text:"hi Flash! what can I do for you?",t:"Mon 2:31"},
+      {me:false,text:"We...",t:"Mon 3:00"},
+      {me:false,text:"...have a case.",t:"Tue 10:00"},
+      {me:false,text:"Missing animals... at Zootopia.",t:"Tue 11:30"},
+      {me:false,text:"We need... a data scientist... to run... some analytics.",t:"Tue 3:00"},
+      {me:true,text:"omg yes I can help!! what kind of analytics?",t:"Tue 3:01"},
+      {me:false,text:"...",t:"Tue 3:02"},
+      {me:false,text:"Pattern... recognition.",t:"Wed 9:00"},
+      {me:false,text:"Species... clustering.",t:"Wed 2:00"},
+      {me:true,text:"I can do all of that!! when do you need it by?",t:"Thu 10:01"},
+      {me:false,text:"...",t:"Thu 10:02"},
+      {me:false,text:"Ha......",t:"Fri 9:00"},
+      {me:false,text:"......ha.",t:"Fri 3:00"},
+      {me:false,text:"Ha ha.",t:"Today"}
+    ],
+    replies: ["...","Ha.","...ha.","I'm... still... reading... your... message.","Ha ha."]
+  }
+};
+
+var activeChat = null;
+function openChat(id) {
+  var c = convos[id]; if (!c) return;
+  activeChat = id;
+  document.getElementById('cvName').textContent = c.name;
+  document.getElementById('cvStatus').textContent = c.status;
+  document.getElementById('cvAva').innerHTML = '<img src="'+I[c.imgKey]+'" style="width:100%;height:100%;object-fit:cover;object-position:top">';
+  renderChat(id);
+  document.getElementById('chatView').classList.add('on');
+  setTimeout(function(){ var m=document.getElementById('cvMsgs'); m.scrollTop=m.scrollHeight; }, 80);
+}
+function renderChat(id) {
+  var c = convos[id];
+  var html = c.msgs.map(function(m) {
+    if (m.isImg) return '<div class="msg-row them"><div class="msg-img-wrap"><img src="'+I['cat']+'" alt="Pumpkin" style="border-radius:14px"></div><span class="msg-t">'+m.t+'</span></div>';
+    return '<div class="msg-row '+(m.me?'me':'them')+'"><div class="bubble">'+m.text+'</div><span class="msg-t">'+m.t+'</span></div>';
+  }).join('');
+  document.getElementById('cvMsgs').innerHTML = html;
+}
+function closeChat() { document.getElementById('chatView').classList.remove('on'); }
+document.getElementById('cvBack').onclick = closeChat;
+
+document.getElementById('cvInp').addEventListener('keydown', function(e) { if(e.key==='Enter') sendMsg(); });
+document.getElementById('cvSend').onclick = sendMsg;
+function sendMsg() {
+  var inp = document.getElementById('cvInp');
+  var txt = inp.value.trim(); if (!txt) return;
+  var n = new Date(), t = (n.getHours()%12||12)+':'+(n.getMinutes()<10?'0'+n.getMinutes():n.getMinutes());
+  if (activeChat && convos[activeChat]) convos[activeChat].msgs.push({me:true,text:txt,t:t});
+  inp.value = '';
+  renderChat(activeChat);
+  var msgs = document.getElementById('cvMsgs'); msgs.scrollTop = msgs.scrollHeight;
+  var delay = activeChat === 'sloth' ? 4000 : 1800;
+  setTimeout(function(){    var typing = document.createElement('div');
+    typing.className = 'msg-row them'; typing.id = 'typing';
+    typing.innerHTML = '<div class="typing-bub"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+    msgs.appendChild(typing); msgs.scrollTop = msgs.scrollHeight;
+  }, 500);
+  setTimeout(function(){    var tr = document.getElementById('typing'); if(tr) tr.remove();
+    var c = convos[activeChat];
+    var r = c.replies[Math.floor(Math.random()*c.replies.length)];
+    c.msgs.push({me:false,text:r,t:t});
+    renderChat(activeChat);
+    msgs.scrollTop = msgs.scrollHeight;
+  }, delay);
+}
+
+// ── VIEW COUNTER ──
+async function loadViews() {
+  try {
+    var r = await fetch('https://api.countapi.xyz/hit/hire-hari-portfolio/visits');
+    var d = await r.json();
+    if (d.value) {
+      document.getElementById('vcNum').textContent = '👁 ' + d.value.toLocaleString() + ' views';
+      document.getElementById('viewsBig').textContent = d.value.toLocaleString();
+    }
+  } catch(e) {
+    document.getElementById('vcNum').textContent = '👁 many views ✨';
+  }
+}
+loadViews();
+
+document.getElementById('shareBtn').onclick = function() {
+  if (navigator.share) navigator.share({title:'Hire Hari 💅', url: window.location.href});
+  else { navigator.clipboard.writeText(window.location.href); alert('Link copied! ✨'); }
+};
+
+</script>
+<!-- BUILD_IMAGES_INJECT -->
+</body>
+</html>
