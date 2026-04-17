@@ -335,6 +335,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
             <div class="lc-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
             <div><div class="lc-n">Email</div><div class="lc-s">hhsk@uw.edu</div></div>
           </a>
+          <a href="https://124578-uw.github.io/Hire-Hari/resume.pdf" target="_blank" class="lc">
+            <div class="lc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div><div class="lc-n">Resume</div><div class="lc-s">Download PDF</div></div>
+          </a>
+          <div class="lc" id="shareBtnProfile" style="cursor:pointer">
+            <div class="lc-icon"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+            <div><div class="lc-n">Share</div><div class="lc-s">Share portfolio</div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -638,6 +646,10 @@ async function loadViews(){
   if(d.value){document.getElementById('viewsBig').textContent=d.value.toLocaleString();}}catch(e){}
 }
 loadViews();
+document.getElementById('shareBtnProfile').addEventListener('click',function(){
+  if(navigator.share)navigator.share({title:'Hire Hari',url:window.location.href});
+  else{navigator.clipboard.writeText(window.location.href);alert('Link copied!');}
+});
 document.getElementById('shareBtn').addEventListener('click',function(){
   if(navigator.share)navigator.share({title:'Hire Hari',url:window.location.href});
   else{navigator.clipboard.writeText(window.location.href);alert('Link copied!');}
